@@ -39,46 +39,73 @@
 # (transcoding), templating and a way to reuse arguments that are frequently repeated. See more here:
 # https://kedro.readthedocs.io/en/stable/data/data_catalog.html
 
-companies:
+
+
+crunchbase_organizations:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
   # more about layers in the Data Engineering Convention:
   # https://kedro.readthedocs.io/en/stable/tutorial/visualise_pipeline.html#interact-with-data-engineering-convention
-  layer: raw
+  layer: bronze
 
-reviews:
+organization_deduplication.crunchbase_organizations_preprocessed:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/reviews.csv
-  layer: raw
+  filepath: data/01_raw/companies.csv
+  layer: bronze
 
-shuttles:
-  type: pandas.ExcelDataSet
-  filepath: data/01_raw/shuttles.xlsx
-  layer: raw
-
-data_processing.preprocessed_companies:
+crunchbase_organizations_deduplicated:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/preprocessed_companies.pq
-  layer: intermediate
+  layer: bronze
 
-data_processing.preprocessed_shuttles:
+
+open_alex_organizations:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  # more about layers in the Data Engineering Convention:
+  # https://kedro.readthedocs.io/en/stable/tutorial/visualise_pipeline.html#interact-with-data-engineering-convention
+  layer: bronze
+
+organization_deduplication.open_alex_organizations_preprocessed:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: bronze
+
+open_alex_organizations_deduplicated:
   type: pandas.ParquetDataSet
-  filepath: data/02_intermediate/preprocessed_shuttles.pq
-  layer: intermediate
+  filepath: data/02_intermediate/preprocessed_companies.pq
+  layer: bronze
 
-model_input_table:
+google_patents_organizations:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  # more about layers in the Data Engineering Convention:
+  # https://kedro.readthedocs.io/en/stable/tutorial/visualise_pipeline.html#interact-with-data-engineering-convention
+  layer: bronze
+
+organization_deduplication.google_patents_organizations_preprocessed:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: bronze
+
+google_patents_organizations_deduplicated:
   type: pandas.ParquetDataSet
-  filepath: data/03_primary/model_input_table.pq
-  layer: primary
+  filepath: data/02_intermediate/preprocessed_companies.pq
+  layer: bronze
 
-data_science.active_modelling_pipeline.regressor:
-  type: pickle.PickleDataSet
-  filepath: data/06_models/regressor_active.pickle
-  versioned: true
-  layer: models
+# linkage storage 
 
-data_science.candidate_modelling_pipeline.regressor:
-  type: pickle.PickleDataSet
-  filepath: data/06_models/regressor_candidate.pickle
-  versioned: true
-  layer: models
+organization_linkage.crunchbase_organizations_deduplicated_processed:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: bronze
+
+organization_linkage.open_alex_organizations_deduplicated_processed:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: bronze
+
+org_pairs_open_alex_crunchbase :
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: silver
