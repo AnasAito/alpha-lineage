@@ -41,7 +41,17 @@
 
 
 
+
 crunchbase_organizations:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/organizations.delta
+  file_format: delta
+  load_args:
+    index_col: [crb_id]
+    columns: [name, label]
+  layer: bronze
+
+crunchbase_funding_rounds:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
   # more about layers in the Data Engineering Convention:
@@ -93,19 +103,3 @@ google_patents_organizations_deduplicated:
   filepath: data/02_intermediate/preprocessed_companies.pq
   layer: bronze
 
-# linkage storage 
-
-organization_linkage.crunchbase_organizations_deduplicated_processed:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/companies.csv
-  layer: bronze
-
-organization_linkage.open_alex_organizations_deduplicated_processed:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/companies.csv
-  layer: bronze
-
-org_pairs_open_alex_crunchbase :
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/companies.csv
-  layer: silver
