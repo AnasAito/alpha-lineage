@@ -1,0 +1,8 @@
+organizations_deduplication:
+  crunchbase_preprocessing:
+    features:
+      - crb_id
+      - name
+      - country_code
+
+
