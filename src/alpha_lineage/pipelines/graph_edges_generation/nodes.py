@@ -2,15 +2,14 @@ import pandas as pd
 
 
 
-def generate_xrefs(crunchbase_funding_rounds,
-                  crunchbase_topics,
-                  crunchbase_business_events):
-    return crunchbase_funding_rounds,crunchbase_topics,crunchbase_business_events
-                         
-                         
-def generate_alpha_nodes(
-                  funding_rounds_xrefs,topics_xrefs,business_events_xrefs):
-    return funding_rounds_xrefs,topics_xrefs,business_events_xrefs
+def generate_edges(
+   crunchbase_topic_association,
+                crunchbase_organization_hierarchy,orgs_xrefs,
+                topics_xrefs,
+                business_events_xrefs,
+                funding_rounds_xrefs):
+
+  return orgs_xrefs,topics_xrefs
 
 def cluster_orgs(org_pairs_open_alex_crunchbase,
             org_pairs_open_alex_google_patents,

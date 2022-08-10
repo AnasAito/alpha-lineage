@@ -10,7 +10,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         [
             node(
                 func=crunchbase_preprocessing,
-                inputs="crunchbase_organizations",
+                inputs=["crunchbase_organizations","crunchbase_topic_association"],
                 outputs="crunchbase_organizations_preprocessed",
                 name="crunchbase_preprocessing",
             ),
@@ -48,7 +48,7 @@ def create_pipeline(**kwargs) -> Pipeline:
           
         ],
         namespace="organization_deduplication",
-        inputs=["crunchbase_organizations","open_alex_organizations","google_patents_organizations"],
+        inputs=["crunchbase_topic_association","crunchbase_organizations","open_alex_organizations","google_patents_organizations"],
         outputs=["crunchbase_organizations_deduplicated",
                  "open_alex_organizations_deduplicated",
                  "google_patents_organizations_deduplicated"],

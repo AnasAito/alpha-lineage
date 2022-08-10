@@ -3,7 +3,7 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
 #
-# broze/crunchbase/vertices
+# bronze/crunchbase/vertices
 crunchbase_organizations:
   type: spark.SparkDataSet
   filepath: lake-dev/bronze/crunchbase/vertices/organizations.delta
@@ -30,6 +30,32 @@ crunchbase_funding_rounds:
   filepath: lake-dev/bronze/crunchbase/vertices/people.delta
   layer: bronze
 
+# bronze/crunchbase/edges
+
+crunchbase_organization_hierarchy:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: bronze
+
+crunchbase_jobs:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: bronze
+
+crunchbase_degrees:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: bronze
+
+crunchbase_topic_association:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: bronze
+
+crunchbase_acquisitions:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: bronze
 # crunchbase/rl
 organization_deduplication.crunchbase_organizations_preprocessed:
   type: pandas.CSVDataSet
