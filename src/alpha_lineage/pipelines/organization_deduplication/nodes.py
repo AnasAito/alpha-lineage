@@ -1,6 +1,10 @@
 import pandas as pd
 
-
+from pyspark.sql import SparkSession
+from pyspark.sql import DataFrame
+spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
+#Create Schema
+from pyspark.sql.types import StructType,StructField, StringType
 def _is_true(x: pd.Series) -> pd.Series:
     return x == "t"
 
@@ -65,3 +69,29 @@ def create_model_input_table(
     )
     model_input_table = model_input_table.dropna()
     return model_input_table
+
+
+def crunchbase_preprocessing(
+    crunchbase_organizations: DataFrame
+) -> DataFrame:
+    """Step 1 : Combines features from direct links to orgs awith native features (like name and url)
+       Step 2 : Preprocess all features 
+       job_path : https://adb-6726284766671799.19.azuredatabricks.net/
+                  ?o=6726284766671799#notebook/2552593661288685
+
+    Args:
+        crunchbase_organizations: Preprocessed data for crunchbase organizations.
+    Returns:
+        crunchbase_organizations_preprocessed : enriched and preprocessed org table
+
+    """
+    output_schema =StructType([
+        StructField('name', StringType(), True),
+        StructField('country_code', StringType(), True),
+        StructField('url', StringType(), True),
+        StructField('linkedin_url', StringType(), True)
+        ])
+    crunchbase_organizations_preprocessed \
+    =  spark.createDataFrame([], output_schema)
+
+    return crunchbase_organizations_preprocessed

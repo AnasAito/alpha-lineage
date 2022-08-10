@@ -21,7 +21,10 @@ def generate_orgs_vertices(orgs_xrefs,
 
     alpha_orgs =  orgs_xrefs       
     return alpha_orgs
-
+def generate_unlinked_vertices(crunchbase_funding_rounds,
+                                crunchbase_topics,
+                                crunchbase_business_events): 
+    alpha_orgs =  crunchbase_funding_rounds       
 def generate_funding_rounds_vertices(crunchbase_funding_rounds): 
     alpha_orgs =  crunchbase_funding_rounds       
     return alpha_orgs 

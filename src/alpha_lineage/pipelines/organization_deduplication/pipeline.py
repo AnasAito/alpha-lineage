@@ -1,14 +1,15 @@
 from kedro.pipeline import Pipeline, node
 from kedro.pipeline.modular_pipeline import pipeline
 
-from .nodes import create_model_input_table, preprocess_companies, preprocess_shuttles
+from .nodes import crunchbase_preprocessing, preprocess_companies, preprocess_shuttles
+
 
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
             node(
-                func=preprocess_companies,
+                func=crunchbase_preprocessing,
                 inputs="crunchbase_organizations",
                 outputs="crunchbase_organizations_preprocessed",
                 name="crunchbase_preprocessing",

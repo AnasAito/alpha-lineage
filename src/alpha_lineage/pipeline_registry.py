@@ -24,5 +24,5 @@ def register_pipelines() -> Dict[str, Pipeline]:
         'org_dedub' : org_dedub_pipeline , 
         'org_linkage' : org_linkage_pipeline,
         'orgs_cluster':orgs_cluster_pipeline,
-        "g_vertices_generate" : g_vertices_generate_pipeline
+        "graph_vertices_generate" : g_vertices_generate_pipeline
     }

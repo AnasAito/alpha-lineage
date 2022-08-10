@@ -3,61 +3,34 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
 #
-# We support interacting with a variety of data stores including local file systems, cloud, network and HDFS
-#
-# An example data set definition can look as follows:
-#
-#bikes:
-#  type: pandas.CSVDataSet
-#  filepath: "data/01_raw/bikes.csv"
-#
-#weather:
-#  type: spark.SparkDataSet
-#  filepath: s3a://your_bucket/data/01_raw/weather*
-#  file_format: csv
-#  credentials: dev_s3
-#  load_args:
-#    header: True
-#    inferSchema: True
-#  save_args:
-#    sep: '|'
-#    header: True
-#
-#scooters:
-#  type: pandas.SQLTableDataSet
-#  credentials: scooters_credentials
-#  table_name: scooters
-#  load_args:
-#    index_col: ['name']
-#    columns: ['name', 'gear']
-#  save_args:
-#    if_exists: 'replace'
-#    # if_exists: 'fail'
-#    # if_exists: 'append'
-#
-# The Data Catalog supports being able to reference the same file using two different DataSet implementations
-# (transcoding), templating and a way to reuse arguments that are frequently repeated. See more here:
-# https://kedro.readthedocs.io/en/stable/data/data_catalog.html
-
-
-
-
+# broze/crunchbase/vertices
 crunchbase_organizations:
   type: spark.SparkDataSet
   filepath: lake-dev/bronze/crunchbase/vertices/organizations.delta
   file_format: delta
-  load_args:
-    index_col: [crb_id]
-    columns: [name, label]
+  layer: bronze
+crunchbase_business_events:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/business_events.delta
+  file_format: delta
+  layer: bronze
+crunchbase_topics:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/topics.delta
+  file_format: delta
+  layer: bronze
+crunchbase_people:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  file_format: delta
   layer: bronze
 
 crunchbase_funding_rounds:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/companies.csv
-  # more about layers in the Data Engineering Convention:
-  # https://kedro.readthedocs.io/en/stable/tutorial/visualise_pipeline.html#interact-with-data-engineering-convention
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
   layer: bronze
 
+# crunchbase/rl
 organization_deduplication.crunchbase_organizations_preprocessed:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
@@ -68,14 +41,13 @@ crunchbase_organizations_deduplicated:
   filepath: data/02_intermediate/preprocessed_companies.pq
   layer: bronze
 
-
+# bronze/open_alex/vertices
 open_alex_organizations:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
-  # more about layers in the Data Engineering Convention:
-  # https://kedro.readthedocs.io/en/stable/tutorial/visualise_pipeline.html#interact-with-data-engineering-convention
   layer: bronze
 
+# open_alex/rl
 organization_deduplication.open_alex_organizations_preprocessed:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
@@ -85,14 +57,15 @@ open_alex_organizations_deduplicated:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/preprocessed_companies.pq
   layer: bronze
-
+# bronze/google_patents/vertices
 google_patents_organizations:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
   # more about layers in the Data Engineering Convention:
   # https://kedro.readthedocs.io/en/stable/tutorial/visualise_pipeline.html#interact-with-data-engineering-convention
   layer: bronze
-
+  
+# google_patents/rl
 organization_deduplication.google_patents_organizations_preprocessed:
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
