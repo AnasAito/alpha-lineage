@@ -51,9 +51,50 @@ orgs_xrefs :
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
   layer: knowledge_graph
+topics_xrefs : 
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
+business_events_xrefs : 
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
+funding_rounds_xrefs : 
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
 
-# graph generation
+# graph generation/vertices
 alpha_organizations :
   type: pandas.CSVDataSet
   filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
+alpha_business_events :
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
+alpha_topics :
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
+
+# graph generation/edges
+alpha_organization_hierarchy :
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/companies.csv
+  layer: knowledge_graph
+
+alpha_jobs:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: knowledge_graph
+
+alpha_degrees:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
+  layer: knowledge_graph
+
+alpha_topic_association:
+  type: spark.SparkDataSet
+  filepath: lake-dev/bronze/crunchbase/vertices/people.delta
   layer: knowledge_graph
